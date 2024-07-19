@@ -90,6 +90,7 @@ return {
     dependencies = {
       { "nvim-telescope/telescope.nvim" },
     },
+    lazy = false,
     config = function()
       require("neoclip").setup()
     end,
@@ -163,6 +164,24 @@ return {
     end,
   },
   -- Debug end
+  -- Быстрое перемещение
+  {
+    "ggandor/leap.nvim",
+    lazy = false,
+    config = function()
+      require("leap").add_default_mappings(true)
+    end,
+  },
+  -- Auto-save
+  {
+    "okuuva/auto-save.nvim",
+    cmd = "ASToggle", -- optional for lazy loading on command
+    event = { "InsertLeave", "TextChanged" }, -- optional for lazy loading on trigger events
+    opts = {
+      -- your config goes here
+      -- or just leave it empty :)
+    },
+  },
   --
   -- {
   -- 	"williamboman/mason.nvim",
