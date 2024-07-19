@@ -104,6 +104,65 @@ return {
       require("telescope").load_extension "live_grep_args"
     end,
   },
+  -- Debug start
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      local ok, dap = pcall(require, "dap")
+      if not ok then
+        return
+      end
+      dap.configurations.typescript = {
+        {
+          type = "node2",
+          name = "node attach",
+          request = "attach",
+          program = "${file}",
+          cwd = vim.fn.getcwd(),
+          sourceMaps = true,
+          protocol = "inspector",
+        },
+      }
+      dap.adapters.node2 = {
+        type = "executable",
+        command = "node-debug2-adapter",
+        args = {},
+      }
+    end,
+    dependencies = {
+      "mxsdev/nvim-dap-vscode-js",
+    },
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    config = function()
+      require("dapui").setup()
+
+      local dap, dapui = require "dap", require "dapui"
+
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open {}
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close {}
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close {}
+      end
+    end,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+  },
+  {
+    "folke/neodev.nvim",
+    config = function()
+      require("neodev").setup {
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      }
+    end,
+  },
+  -- Debug end
   --
   -- {
   -- 	"williamboman/mason.nvim",
