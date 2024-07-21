@@ -144,6 +144,7 @@ return {
       "mfussenegger/nvim-dap",
     },
   },
+  { "nvim-neotest/nvim-nio" },
   {
     "folke/neodev.nvim",
     config = function()
