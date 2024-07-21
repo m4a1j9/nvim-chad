@@ -84,18 +84,6 @@ return {
       require("leap").add_default_mappings(true)
     end,
   },
-  -- История скопированного текста
-  {
-    "AckslD/nvim-neoclip.lua",
-    dependencies = {
-      { "kkharji/sqlite.lua", module = "sqlite" },
-      { "nvim-telescope/telescope.nvim" },
-    },
-    lazy = false,
-    config = function()
-      require("neoclip").setup()
-    end,
-  },
   -- Поиск с флагами
   {
     "nvim-telescope/telescope-live-grep-args.nvim",
